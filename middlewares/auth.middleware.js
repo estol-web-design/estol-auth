@@ -8,20 +8,17 @@ export const isAuthenticated = (req, res, next) => {
 export const signMiddleware = (req, res, next) => {
   passport.authenticate("local", { session: true }, (err, user, info) => {
     if (err) {
-      console.error(err);
-      throw new Error("Internal server error");
+      throw new Error(err.message);
     }
     if (!user) throw new Error(info.message);
     req.login(user, (err) => {
       if (err) {
-        console.error(err);
-        throw new Error("Internal server error");
+        throw new Error(err.message);
       }
-      const { password, ...returnUser } = user;
       return res.json({
         success: true,
         message: "User logged in",
-        user: returnUser,
+        user,
       });
     });
   })(req, res, next);

@@ -12,7 +12,7 @@ const LocalStrategy = new Strategy(async (userData, password, done) => {
     if (!(await usr.comparePassword(password)))
       return done(null, false, { message: "Invalid credentials" });
 
-    const { password: userPassword, ...user } = usr;
+    const { password: userPassword, ...user } = usr.toObject();
 
     return done(null, user);
   } catch (err) {

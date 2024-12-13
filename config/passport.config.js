@@ -11,10 +11,10 @@ passport.use(MicrosoftStratery);
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser(async (id, done) => {
   try {
-    let usr = await User.findById(id);
+    let usr = await User.findById(id).lean();
 
     if (usr.password) {
-      const { password, user } = usr;
+      const { password, ...user } = usr;
       return done(null, user);
     }
 
