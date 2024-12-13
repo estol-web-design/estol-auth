@@ -6,10 +6,12 @@ import {
   signMiddleware,
 } from "./middlewares/auth.middleware.js";
 
-export {
-  passport as estolAuth,
+const estolAuth = {
+  auth: passport,
   User,
   register,
   isAuthenticated,
   signMiddleware,
 };
+
+export default estolAuth;
